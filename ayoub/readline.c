@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #define RL_BUFSIZE 1024
 
 /**
- * oursh_read_line - Read a line of input from the user
+ * oursh_read_line - Read a line of input
  * Return: Pointer to the input line
  */
 char *oursh_read_line(void) {
