@@ -9,13 +9,13 @@
 char *find_executable(const char *command) {
     char *path = getenv("PATH");
     if (path == NULL) {
-        return NULL; // PATH variable not set
+        return NULL;
     }
 
     char *token;
-    char *path_copy = strdup(path); // Duplicate PATH for tokenization
+    char *path_copy = strdup(path);
     if (path_copy == NULL) {
-        return NULL; // Memory allocation error
+        return NULL;
     }
 
     token = strtok(path_copy, ":");
@@ -23,7 +23,7 @@ char *find_executable(const char *command) {
         char *executable_path = malloc(MAX_PATH_LENGTH);
         if (executable_path == NULL) {
             free(path_copy);
-            return NULL; // Memory allocation error
+            return NULL;
         }
 
         strcpy(executable_path, token);
@@ -32,7 +32,7 @@ char *find_executable(const char *command) {
 
         if (access(executable_path, X_OK) == 0) {
             free(path_copy);
-            return executable_path; // Return executable path if found
+            return executable_path;
         }
 
         free(executable_path);
@@ -40,11 +40,11 @@ char *find_executable(const char *command) {
     }
 
     free(path_copy);
-    return NULL; // Executable not found in any PATH directory
+    return NULL;
 }
 
 int main() {
-    char *command = "ls"; // Example command
+    char *command = "ls";
     char *executable_path = find_executable(command);
     if (executable_path != NULL) {
         printf("Executable path: %s\n", executable_path);
