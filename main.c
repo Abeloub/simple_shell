@@ -22,7 +22,7 @@ int main(int ac, char **argv)
 		line = read_line();
 		if (line == NULL) /*reache end of file (ctrl + D)*/
 		{
-			if (is_interactive)
+			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
 
 			free(line);
