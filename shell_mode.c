@@ -9,7 +9,7 @@
 
 char *read_line(void)
 {
-	char *prompt = "$> ";
+	char *prompt = "#cisfun$ ";
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t n;
@@ -44,7 +44,6 @@ char *read_line(void)
 		else
 			line[n] = '\0';
 	}
-
 	return (line);
 }
 
