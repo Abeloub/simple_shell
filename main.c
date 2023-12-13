@@ -1,31 +1,37 @@
 #include "shell.h"
+
 /**
  * main - simple shell
  *
- *@argc : number count of arguments
+ *@ac : number count of arguments
  *@argv : the arguments
  *
  *Return: 0 always
  */
 
-int main(int argc, char *argv[])
+int main(int ac, char **argv)
 {
-	if (argc == 1)
+	char *line = NULL;
+	char **command = NULL;
+	int status = 0;
+	(void) argv;
+	(void) ac;
+
+	while (1)
 	{
-		/* Interactive mode */
-		interactive_mode();
+		line = read_line();
+		if (line == NULL) /*reache end of file (ctrl + D)*/
+		{
+			if (isatty(STDIN_FILENO))
+				write((STDOUT_FILENO), "\n", 1);
+			return (status);
+		}
+
+		command = tokenizer(line);
+		if (!command)
+			continue;
+
+		status = _execute(command, argv);
 	}
-	else if (argc == 2)
-	{
-		/* Non-interactive mode */
-		non_interactive_mode(argv[1]);
-	} else
-	{
-		write(STDERR_FILENO, "Usage: ", 7);
-		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-		write(STDERR_FILENO, " [script_file]\n", 15);
-		exit(EXIT_FAILURE);
-	}
-	return (0);
 }
 

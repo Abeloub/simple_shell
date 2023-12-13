@@ -1,84 +1,41 @@
 #include "shell.h"
-/*
- * interactive_mode - shell in interactive mode
+
+/**
+ * read_line - read a line from the standard input
  *
- *Return: 0
+ *
+ * Return: the number of characters read, or -1 on failure
  */
 
-void interactive_mode(void) 
+char *read_line(void)
 {
-	char *input;
-	size_t len = 0;
-	ssize_t read;
+		char *prompt = "$> ";
+		char *line = NULL;
+		size_t len = 0;
+		ssize_t n;
 
-	while (1)
-	{
-		write(STDOUT_FILENO, "$$- ", 4);
-		read = getline(&input, &len, stdin);
+		/* Check if input is from a terminal */
+		int is_interactive = isatty(STDIN_FILENO);
 
-		if (read == -1)
+		if (is_interactive)
+			write((STDOUT_FILENO), prompt, strlen(prompt));
+
+		n = getline(&line, &len, stdin);
+
+		if (n == -1) /* end of file condition */
 		{
-			perror("shell");
-			exit(EXIT_FAILURE);
+			if (is_interactive)
+				write(STDOUT_FILENO, "\n", 1);
+			free(line);
+			return (NULL);
 		}
+		if (is_interactive)
+			/*Null-terminate the string for interactive mode */
+			line[n - 1] = '\0';
+		else
+			/*Null-terminate the string for non-interactive mode*/
+			line[n] = '\0';
 
-		/* Remove newline character */
-		input[strcspn(input, "\n")] = 0;
-
-		if (strcmp(input, "exit") == 0)
-		{
-			/* Exit the shell */
-			free(input);
-			exit(EXIT_SUCCESS);
-		}
-
-		char **args = tokenize_input(input);
-
-		if (args[0] != NULL)
-		{
-			execute_command(args);
-		}
-
-		free(args);
-	}
-	free(input);
-}
-
-/*
- * non_interactive_mode - shell in non interactive mode
- *
- *Return: 0
- */
-
-void non_interactive_mode(char *script_filename)
-{
-	FILE *script_file = fopen(script_filename, "r");
-
-	if (script_file == NULL)
-	{
-		perror("shell");
-		exit(EXIT_FAILURE);
-	}
-
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-
-	while ((read = getline(&line, &len, script_file)) != -1)
-	{
-		/* Remove newline character */
-		line[strcspn(line, "\n")] = 0;
-
-		char **args = tokenize_input(line);
-
-		if (args[0] != NULL)
-		{
-			execute_command(args);
-		}
-
-		free(args);
-	}
-	free(line);
-	fclose(script_file);
+		return (line);
 }
 

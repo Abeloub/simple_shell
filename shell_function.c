@@ -2,7 +2,7 @@
 
 /**
  * execute_command - execute a command using fork and execve
- *@argv: argument of function
+ *@args: argument of function
  *
  *Return: void
  */
@@ -31,11 +31,12 @@ void execute_command(char **args)
 	else
 	{
 		/* Parent process */
-		do
 		{
+			do
 			wait_pid = waitpid(pid, &status, WUNTRACED);
-		}
+
 		while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		}
 	}
 }
 

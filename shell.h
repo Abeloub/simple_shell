@@ -19,6 +19,7 @@
 /* shell command function */
 char **tokenize_input(char *input);
 void execute_command(char **args);
+char *read_line(void);
 
 /*shell mode function*/
 void interactive_mode(void);
