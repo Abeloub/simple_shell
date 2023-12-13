@@ -27,7 +27,7 @@ int main(int ac, char **argv)
 			return (status);
 		}
 
-		command = tokenizer(line);
+		command = tokenize_input(line);
 		if (!command)
 			continue;
 

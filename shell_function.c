@@ -1,43 +1,33 @@
 #include "shell.h"
 
 /**
- * execute_command - execute a command using fork and execve
- *@args: argument of function
+ * _execute - execute a command using fork and execve
+ *@command: command text line
+ *@argv: argument of function
  *
  *Return: void
  */
 
-void execute_command(char **args)
+int _execute(char **command, char **argv)
 {
-	pid_t pid, wait_pid;
+	pid_t child;
 	int status;
 
-	pid = fork();
-
-	if (pid == 0)
+	child = fork();
+	if (child == 0)
 	{
-		/* Child process */
-		if (execvp(args[0], args) == -1)
+		if (execve(command[0], command, environ) == -1)
 		{
-			perror(args[0]);
+			perror(argv[0]);
+			freearray2D(command);
 		}
-		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		/* Forking error */
-		perror(args[0]);
 	}
 	else
 	{
-		/* Parent process */
-		{
-			do
-			wait_pid = waitpid(pid, &status, WUNTRACED);
-
-		while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		}
+		waitpid(child, &status, 0);
+		freearray2D(command);
 	}
+	return (WEXITSTATUS(status));
 }
 
 /**

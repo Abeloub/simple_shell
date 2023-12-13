@@ -13,17 +13,14 @@
 
 #define DELIM " \t\n"
 
-#define MAX_COMMAND_LENGTH 100
-#define MAX_ARGUMENTS 10
+extern char **environ;
+
 
 /* shell command function */
 char **tokenize_input(char *input);
-void execute_command(char **args);
+int _execute(char **command, char **argv);
 char *read_line(void);
-
-/*shell mode function*/
-void interactive_mode(void);
-void non_interactive_mode(char *script_filename);
+void freearray2D(char **arr);
 
 /* string function */
 char *_strdup(char *str);
