@@ -17,13 +17,13 @@ char **tokenize_input(char *input)
 		return (NULL);
 	tmp = _strdup(input);
 	token = strtok(tmp, DELIM);
-
 	if (token == NULL)
 	{
 		free(input), input = NULL;
 		free(tmp), tmp = NULL;
 		return (NULL);
 	}
+
 	while (token)
 	{
 		cpt++;
@@ -44,6 +44,7 @@ char **tokenize_input(char *input)
 		token = strtok(NULL, DELIM);
 		i++;
 	}
+	
 	command[i] = NULL;
 	return (command);
 }
@@ -68,6 +69,7 @@ int _execute(char **command, char **argv)
 		{
 			perror(argv[0]);
 			freearray2D(command);
+			exit(127);
 		}
 	}
 	else
@@ -99,5 +101,4 @@ void freearray2D(char **arr)
 	}
 	free(arr), arr = NULL;
 }
-
 
