@@ -44,7 +44,7 @@ char **tokenize_input(char *input)
 		token = strtok(NULL, DELIM);
 		i++;
 	}
-	
+	free(input), input = NULL;
 	command[i] = NULL;
 	return (command);
 }
@@ -101,4 +101,5 @@ void freearray2D(char **arr)
 	}
 	free(arr), arr = NULL;
 }
+
 

@@ -21,6 +21,8 @@ int main(int ac, char **argv)
 		line = read_line();
 		if (line == NULL) /*reache end of file (ctrl + D)*/
 		{
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
 			free(line);
 			return (status);
 		}
@@ -35,4 +37,5 @@ int main(int ac, char **argv)
 	}
 	return (0);
 }
+
 
