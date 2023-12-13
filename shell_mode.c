@@ -25,7 +25,7 @@ char *read_line(void)
 	if (n == -1) /* end of file condition */
 	{
 		if (is_interactive)
-			write(STDOUT_FILENO, "\0", 1);
+			write(STDOUT_FILENO, "\n", 1);
 		free(line);
 		return (NULL);
 	}
