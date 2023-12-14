@@ -23,7 +23,7 @@ int main(int ac, char **argv)
 		if (line == NULL) /*reache end of file (ctrl + D)*/
 		{
 			if (isatty(STDIN_FILENO))
-				write((STDOUT_FILENO), "\n", 1);
+				write(STDOUT_FILENO, "\n", 1);
 
 			free(line);
 			return (status);
