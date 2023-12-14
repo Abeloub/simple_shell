@@ -39,7 +39,6 @@ int main(int ac, char **argv)
 
 		if (strcmp(command[0], "exit") == 0)
 		{
-			free(line);
 			freearray2D(command);
 			exit(status);
 		}
