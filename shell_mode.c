@@ -22,7 +22,7 @@ char *read_line(void)
 
 	if (n == -1) /* end of file condition */
 	{
-		
+
 		free(line);
 		return (NULL);
 	}
@@ -31,8 +31,11 @@ char *read_line(void)
 }
 
 /**
- * read_line - read a line from the standard input
+ * print_error - read a line from the standard input
  *
+ *@name: A string is name of the program or shell
+ *@command: string is the command that was not found
+ *@i: is a number or index associated with the error
  *
  * Return: the number of characters read, or -1 on failure
  */
@@ -80,12 +83,14 @@ char *_itoa(int n)
 	buffer[i] = '\0';
 	reverse_string(buffer, i);
 
-    return (_strdup(buffer));
+	return (_strdup(buffer));
 }
 
 /**
- * rever - read a line from the standard input
+ * reverse_string - read a line from the standard input
  *
+ *@str: pointer to the string that you want to reverse.
+ *@len: integer representing the length of the string.
  *
  * Return: the number of characters read, or -1 on failure
  */

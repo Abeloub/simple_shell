@@ -45,28 +45,21 @@ char *_handle_path(char *command)
 	int i = 0;
 	struct stat st;
 
-	while(command[i])
+for (i = 0, command[i], i++)
+{
+	if (command[i] == '/')
 	{
-  		if (command[i] == '/') 
-		{
 		if (stat(command, &st) == 0)
-			{
-				return(_strdup(command));
-			}
+			return (_strdup(command));
+
 		return (NULL);
-		}
-		i++;
 	}
-
 	path_env = _getenv("PATH");
-		if(!path_env)
-			return(NULL);
-
+	if (!path_env)
+		return (NULL);
 	dir = strtok(path_env, ":");
-
 	while (dir)
 	{
-		/* size = len(dir) + len(cmd) + 2 (\ and \0) */
 		full_command = malloc(_strlen(dir) + _strlen(command) + 2);
 		if (full_command)
 		{
@@ -79,12 +72,10 @@ char *_handle_path(char *command)
 				return (full_command);
 			}
 			free(full_command), full_command = NULL;
-
 			dir = strtok(NULL, ":");
 		}
 	}
 	free(path_env);
 	return (NULL);
 }
-
 

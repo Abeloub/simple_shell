@@ -51,9 +51,10 @@ char **tokenize_input(char *input)
 
 /**
  * _execute - execute a command using fork and execve
+ *
  *@command: command text line
  *@argv: argument of function
- *
+ *@andex: index for print error
  *Return: void
  */
 
@@ -69,7 +70,7 @@ int _execute(char **command, char **argv, int andex)
 	{
 		print_error(argv[0], command[0], andex);
 		freearray2D(command);
-		return(127);
+		return (127);
 	}
 
 	child = fork();
