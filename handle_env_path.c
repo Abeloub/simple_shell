@@ -45,7 +45,7 @@ char *_handle_path(char *command)
 	int i = 0;
 	struct stat st;
 
-for (i = 0, command[i], i++)
+for (i = 0; command[i]; i++)
 {
 	if (command[i] == '/')
 	{
@@ -74,6 +74,7 @@ for (i = 0, command[i], i++)
 			free(full_command), full_command = NULL;
 			dir = strtok(NULL, ":");
 		}
+	}
 	}
 	free(path_env);
 	return (NULL);
