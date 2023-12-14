@@ -24,7 +24,6 @@ int main(int ac, char **argv)
 		{
 			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
-
 			free(line);
 			return (status);
 		}
@@ -42,8 +41,8 @@ int main(int ac, char **argv)
 			freearray2D(command);
 			exit(status);
 		}
-		else
-			status = _execute(command, argv, andex);
+
+		status = _execute(command, argv, andex);
 	}
 	return (0);
 }
