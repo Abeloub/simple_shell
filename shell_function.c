@@ -57,25 +57,35 @@ char **tokenize_input(char *input)
  *Return: void
  */
 
-int _execute(char **command, char **argv)
+int _execute(char **command, char **argv, int andex)
 {
+	char *full_command;
 	pid_t child;
 	int status;
+
+	full_command = _handle_path(command[0]);
+
+	if (!full_command)
+	{
+		print_error(argv[0], command[0], andex);
+		freearray2D(command);
+		return(127);
+	}
 
 	child = fork();
 	if (child == 0)
 	{
-		if (execve(command[0], command, environ) == -1)
+		if (execve(full_command, command, environ) == -1)
 		{
-			perror(argv[0]);
+			free(full_command), full_command = NULL;
 			freearray2D(command);
-			exit(127);
 		}
 	}
 	else
 	{
 		waitpid(child, &status, 0);
 		freearray2D(command);
+		free(full_command), full_command = NULL;
 	}
 	return (WEXITSTATUS(status));
 }
@@ -101,5 +111,6 @@ void freearray2D(char **arr)
 	}
 	free(arr), arr = NULL;
 }
+
 
 

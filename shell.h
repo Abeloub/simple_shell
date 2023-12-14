@@ -15,10 +15,9 @@
 
 extern char **environ;
 
-
 /* shell command function */
 char **tokenize_input(char *input);
-int _execute(char **command, char **argv);
+int _execute(char **command, char **argv, int andex);
 char *read_line(void);
 void freearray2D(char **arr);
 
@@ -29,7 +28,14 @@ int _strlen(char *s);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
+/* handle the path */
+char *_getenv(char *variable);
+char *_handle_path(char *command);
 
+void print_error(char *name, char *command, int i);
+char *_itoa(int n);
+void reverse_string(char *str, int len);
 
 #endif /* SHELL_H */
+
 

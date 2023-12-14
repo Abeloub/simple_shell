@@ -14,6 +14,7 @@ int main(int ac, char **argv)
 	char *line = NULL;
 	char **command = NULL;
 	int status = 0;
+	int andex = 0;
 	(void) ac;
 
 	while (1)
@@ -27,15 +28,17 @@ int main(int ac, char **argv)
 			return (status);
 		}
 
+		andex++;
 		command = tokenize_input(line);
 		if (!command)
 		{
 			freearray2D(command);
 			continue;
 		}
-		status = _execute(command, argv);
+		status = _execute(command, argv, andex);
 	}
 	return (0);
 }
+
 
 

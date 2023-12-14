@@ -30,4 +30,79 @@ char *read_line(void)
 	return (line);
 }
 
+/**
+ * read_line - read a line from the standard input
+ *
+ *
+ * Return: the number of characters read, or -1 on failure
+ */
+void print_error(char *name, char *command, int i)
+{
+	char *andex;
+	char mesage[] = ": not found\n";
+
+	andex = _itoa(i);
+
+	write(STDERR_FILENO, name, _strlen(name));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, andex, _strlen(andex));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, command, _strlen(command));
+	write(STDERR_FILENO, mesage, _strlen(mesage));
+
+	free(andex);
+}
+
+
+/**
+ * _itoa - Convert an integer to a string.
+ *
+ * @n: The integer to be converted.
+ *
+ * Return: A dynamically allocated string representing the integer.
+ */
+char *_itoa(int n)
+{
+	char  buffer[20];
+	int i = 0;
+
+	if (n == 0)
+		buffer[i++] = '0';
+	else
+	{
+		while (n > 0)
+		{
+			buffer[i++] = (n % 10) + '0';
+			n /= 10;
+		}
+	}
+
+	buffer[i] = '\0';
+	reverse_string(buffer, i);
+
+    return (_strdup(buffer));
+}
+
+/**
+ * rever - read a line from the standard input
+ *
+ *
+ * Return: the number of characters read, or -1 on failure
+ */
+void reverse_string(char *str, int len)
+{
+	char tremp;
+	int beginn = 0;
+	int finish = len - 1;
+
+	while (beginn < finish)
+	{
+		tremp = str[beginn];
+		str[beginn] = str[finish];
+		str[finish] = tremp;
+		beginn++;
+		finish--;
+	}
+}
+
 
