@@ -22,9 +22,6 @@ char *read_line(void)
 
 	if (n == -1) /* end of file condition */
 	{
-		if (isatty(STDIN_FILENO))
-			write((STDOT_FILENO), '\n', 1));
-
 		free(line);
 		return (NULL);
 	}
